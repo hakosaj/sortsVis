@@ -18,6 +18,10 @@ Adding some visualization later, too.
 
 DONT USE THIS YET
 
+## Next steps
+Quicksort, mergesort, radixsort
+Design the style of visualization
+
 ## Authors
 
 * **Jussi Hakosalo** - *All of it* - [hakosaj](https://github.com/hakosaj)
