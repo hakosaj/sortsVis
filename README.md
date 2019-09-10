@@ -20,6 +20,8 @@ DONT USE THIS YET
 
 ## Next steps
 Quicksort, mergesort, radixsort
+
+
 Design the style of visualization
 
 ## Authors
