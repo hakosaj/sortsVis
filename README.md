@@ -23,6 +23,7 @@ DONT USE THIS YET
   - Mergesort
   - base10 Radix sort
   - Design the visualization style
+  - Makefile
 
 
 Design the style of visualization
