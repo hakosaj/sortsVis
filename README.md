@@ -4,10 +4,12 @@
 # Sorting algorithms and visualizations
 
 HOX! WORK IN PROGRESS, SERIOUSLY
-Sorting algorithm practise on c++, with visualization!
 
 
-Will be creating a variety of different sorting algorithms from scratch, just for practise and fun!
+Sorting algorithm practise on c++!
+
+
+Will be creating a variety of different sorting algorithms from scratch, just for fun!
 
 Adding some visualization later, too.
 
