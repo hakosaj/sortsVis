@@ -19,7 +19,10 @@ Adding some visualization later, too.
 DONT USE THIS YET
 
 ## Next steps
-Quicksort, mergesort, radixsort
+  - Quicksort
+  - Mergesort
+  - base10 Radix sort
+  - Design the visualization style
 
 
 Design the style of visualization
