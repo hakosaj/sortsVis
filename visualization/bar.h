@@ -1,13 +1,12 @@
 #ifndef BAR_H
 #define BAR_H
 
-
 class Bar {       
   public:             
     int value;        
-    int id;
     sf::RectangleShape rect;
-    Bar(int value, int id);
+    sf::RectangleShape backg;
+    Bar(int value, int currentx, int slot);
 };
 
 #endif
