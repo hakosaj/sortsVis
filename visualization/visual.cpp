@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "bar.h"
+#include <unistd.h>
 
 using std::vector;
 
@@ -13,6 +14,7 @@ int main()
     int outline=20;
     int screenx=660;
     int screeny=500;
+    int barWidth=14;
     sf::RenderWindow window(sf::VideoMode(screenx,screeny), "SortsVis");
 
     int n=0;
@@ -76,7 +78,29 @@ int main()
 
 
 
+        //swap two bars
+        std::swap(slots[1],slots[2]);
 
+        //reorder bars according to slots:
+
+        //sort the values
+        std::sort(values.begin(),values.end());
+        //Go through all the values: for each value, find the bar with same value. 
+        int currentIndex=0;
+        for (const auto& g:values) {
+            bool found=false;
+            int barInd=0;
+            while (!found) {
+                if(bars[barInd].value==g) {
+                    found=true;
+                }
+                barInd++;
+            }
+            bars[barInd].rect.setPosition(outline+currentIndex*14,480-g);
+            bars[barInd].backg.setPosition(outline+currentIndex*14-1,480-g-1);
+            currentIndex++;
+
+        }
 
 
         for (const auto& r:bars)
