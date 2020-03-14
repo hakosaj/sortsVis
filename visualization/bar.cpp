@@ -3,8 +3,9 @@
 #include "bar.h"
 
 
-Bar::Bar(int val,int currentx, int slot) {
+Bar::Bar(int val, int slott) {
     value=val;
+    slot=slott;
     //Koko on siis leveydessä vakio, pituudessa arvon mittainen
     rect.setSize(sf::Vector2f(12,value));
     rect.setFillColor(sf::Color::Red);
@@ -12,6 +13,19 @@ Bar::Bar(int val,int currentx, int slot) {
     backg.setFillColor(sf::Color::Black);
 
     //Mittaus vasen yläkulma. x vakioiinkrementaatio, y 200-value
-    rect.setPosition(currentx,480-value);
-    backg.setPosition(currentx-1,480-value-1);
+    rect.setPosition(20+slot*14,480-value);
+    backg.setPosition(20+slot*14-1,480-value-1);
+
+
+
+
 }
+
+    void Bar::setBarPosition(int x) {
+        rect.setPosition(20+x,480-value);
+        backg.setPosition(20+x-1,480-value-1);
+    }
+    void Bar::setBarSlot(int slott) {
+        slot=slott;
+        Bar::setBarPosition(slott*14);
+    }

@@ -3,10 +3,13 @@
 
 class Bar {       
   public:             
-    int value;        
+    int value;
+    int slot;
     sf::RectangleShape rect;
     sf::RectangleShape backg;
-    Bar(int value, int currentx, int slot);
+    Bar(int value, int slot);
+    void setBarPosition(int x);
+    void setBarSlot(int x);
 };
 
 #endif

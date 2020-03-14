@@ -1,6 +1,9 @@
 LIBS=-lsfml-graphics -lsfml-window -lsfml-system
 
-all: simulation
+all: visualis
+
+functions.o: functions.cpp
+		g++ -c -fopenmp "functions.cpp" -o functions.o
 
 visual.o: visual.cpp
 		g++ -c -fopenmp "visual.cpp" -o visual.o
@@ -8,18 +11,19 @@ visual.o: visual.cpp
 bar.o: bar.cpp
 		g++ -c -fopenmp "bar.cpp" -o bar.o
 
-simulation: visual.o bar.o
-		@echo "** Building the simulation"
-		g++ -o simulation -fopenmp  visual.o bar.o $(LIBS)
+
+visualis: visual.o functions.o bar.o 
+		@echo "** Building the visualization"
+		g++ -o visualis -fopenmp  functions.o visual.o bar.o $(LIBS)
 
 clean:
 		@echo "** Removing object files and executable..."
-		rm -f simulation *.o
+		rm -f visualis *.o
 
 install:
 		@echo '** Installing...'
-		cp simulation /usr/bin
+		cp visualis /usr/bin
 
 uninstall:
 		@echo '** Uninstalling...'
-		rm -f /usr/bin/simulation
+		rm -f /usr/bin/visualis

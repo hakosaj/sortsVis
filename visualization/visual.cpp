@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include "bar.h"
 #include <unistd.h>
+#include "bar.h"
+#include "functions.h"
 
 using std::vector;
 
@@ -8,39 +9,42 @@ using std::vector;
 // 3) muuta barien positiota slottien perusteella
 
 
+
+
 int main()
 {
+
+    int sortIndexi=0;
+    int sortIndexj=0;
+
+    bool sorted=false;
 
     int outline=20;
     int screenx=660;
     int screeny=500;
     int barWidth=14;
     sf::RenderWindow window(sf::VideoMode(screenx,screeny), "SortsVis");
+    window.setFramerateLimit(120);
 
-    int n=0;
-    std::vector<int> slots = std::vector<int>();
-    int g=outline;
-    while (g<screenx-100) {
-        slots.push_back(g);
-        g+=14;
-        n+=1;
-    }
 
     vector<int> values=vector<int>();
-
+    int n=40;
     int maxValue=300;
+
     std::vector<Bar> bars = std::vector<Bar>();
     srand(std::time(NULL));
     int currentPos=outline;
     for (int i=0;i<n;i++) {
         int v = rand() %maxValue+1;
-        bars.push_back(Bar(v,slots[i], i));
+        bars.push_back(Bar(v,i));
         values.push_back(v);
     }
 
 
     while (window.isOpen())
     {
+
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -53,7 +57,6 @@ int main()
 
 
 
-        //Draw background itself. Green outline, white inside, black bounding box
 
         sf::RectangleShape background1;
         background1.setSize(sf::Vector2f(screenx-2*outline,screeny-2*outline));
@@ -78,30 +81,41 @@ int main()
 
 
 
-        //swap two bars
-        std::swap(slots[1],slots[2]);
+        
 
-        //reorder bars according to slots:
-
-        //sort the values
-        std::sort(values.begin(),values.end());
-        //Go through all the values: for each value, find the bar with same value. 
-        int currentIndex=0;
-        for (const auto& g:values) {
-            bool found=false;
-            int barInd=0;
-            while (!found) {
-                if(bars[barInd].value==g) {
-                    found=true;
-                }
-                barInd++;
-            }
-            bars[barInd].rect.setPosition(outline+currentIndex*14,480-g);
-            bars[barInd].backg.setPosition(outline+currentIndex*14-1,480-g-1);
-            currentIndex++;
-
+        
+        if (sortIndexi==n-1) {
+            sorted=true;
         }
 
+        if(!sorted)
+        {
+       
+    
+            if (sortIndexj==n) {
+                sortIndexi++;
+                sortIndexj=sortIndexi+1;
+                for (int a=sortIndexi;a<n;a++) {
+                    bars[a].rect.setFillColor(sf::Color::Red);
+                }
+            }else {
+                sortIndexj++;
+            }
+
+            if (sortIndexi!=n-1) {
+
+                if(bars[sortIndexj].value<bars[sortIndexi].value) {
+                    swapBars(bars,sortIndexi,sortIndexj);
+
+                }
+            }
+        }
+
+        
+
+        
+        bars[sortIndexi].rect.setFillColor(sf::Color::Green);
+        bars[sortIndexj].rect.setFillColor(sf::Color::Yellow);
 
         for (const auto& r:bars)
         {
@@ -113,3 +127,4 @@ int main()
 
     return 0;
 }
+
