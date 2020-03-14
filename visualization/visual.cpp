@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <unistd.h>
+#include <iostream>
 #include "bar.h"
 #include "functions.h"
 
@@ -14,6 +16,15 @@ using std::vector;
 int main()
 {
 
+
+    sf::Font font;
+    int arrayAccessess=0;
+    int comparisons=0;
+    sf::Text accessText;
+    sf::Text comparisonText;
+    font.loadFromFile("Arial.ttf");
+    accessText.setFont(font);
+    comparisonText.setFont(font);
     int sortIndexi=0;
     int sortIndexj=0;
 
@@ -22,14 +33,14 @@ int main()
     int outline=20;
     int screenx=660;
     int screeny=500;
-    int barWidth=14;
+    int barWidth=6;
     sf::RenderWindow window(sf::VideoMode(screenx,screeny), "SortsVis");
-    window.setFramerateLimit(120);
+    window.setFramerateLimit(180);
 
 
     vector<int> values=vector<int>();
-    int n=40;
-    int maxValue=300;
+    int n=60;
+    int maxValue=400;
 
     std::vector<Bar> bars = std::vector<Bar>();
     srand(std::time(NULL));
@@ -40,10 +51,27 @@ int main()
         values.push_back(v);
     }
 
+    sf::Color mygreen = sf::Color(76, 209, 55);
+    sf::Color myyellow = sf::Color(251, 197, 49);
+    sf::Color myred = sf::Color(232, 65, 24);
+
+    /*
+    sf::SoundBuffer buffer;
+    if (!buffer.loadFromFile("hit.wav"))
+        return -1;
+
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+    sound.play();
+    */
+
+
+
 
     while (window.isOpen())
     {
 
+        std::cout << '\a';
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -61,12 +89,15 @@ int main()
         sf::RectangleShape background1;
         background1.setSize(sf::Vector2f(screenx-2*outline,screeny-2*outline));
         background1.setPosition(outline,outline);
-        background1.setFillColor(sf::Color::White);
+        sf::Color Gray =sf::Color(149, 165, 166);
+        sf::Color BgWhite =sf::Color(236, 240, 241);
+
+        background1.setFillColor(Gray);
 
         sf::RectangleShape background2;
         background2.setSize(sf::Vector2f(screenx,screeny));
         background2.setPosition(0,0);
-        background2.setFillColor(sf::Color::Green);
+        background2.setFillColor(BgWhite);
 
         sf::RectangleShape boundingBox;
         boundingBox.setSize(sf::Vector2f(screenx-2*outline+4,screeny-2*outline+4));
@@ -86,6 +117,7 @@ int main()
         
         if (sortIndexi==n-1) {
             sorted=true;
+
         }
 
         if(!sorted)
@@ -96,7 +128,7 @@ int main()
                 sortIndexi++;
                 sortIndexj=sortIndexi+1;
                 for (int a=sortIndexi;a<n;a++) {
-                    bars[a].rect.setFillColor(sf::Color::Red);
+                    bars[a].rect.setFillColor(myred);
                 }
             }else {
                 sortIndexj++;
@@ -105,7 +137,9 @@ int main()
             if (sortIndexi!=n-1) {
 
                 if(bars[sortIndexj].value<bars[sortIndexi].value) {
+                    comparisons+=1;
                     swapBars(bars,sortIndexi,sortIndexj);
+                    arrayAccessess+=4;
 
                 }
             }
@@ -114,8 +148,20 @@ int main()
         
 
         
-        bars[sortIndexi].rect.setFillColor(sf::Color::Green);
-        bars[sortIndexj].rect.setFillColor(sf::Color::Yellow);
+        bars[sortIndexi].rect.setFillColor(mygreen);
+        bars[sortIndexj].rect.setFillColor(myyellow);
+
+        accessText.setString("Array accesses: "+std::to_string(arrayAccessess));
+        accessText.setPosition(50,30);
+        accessText.setCharacterSize(20);
+        accessText.setFillColor(sf::Color::Black);
+
+        comparisonText.setString("Comparisons:    "+std::to_string(comparisons));
+        comparisonText.setPosition(50,50);
+        comparisonText.setCharacterSize(20);
+        comparisonText.setFillColor(sf::Color::Black);
+        window.draw(accessText);
+        window.draw(comparisonText);
 
         for (const auto& r:bars)
         {

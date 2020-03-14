@@ -1,4 +1,5 @@
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "functions.h"
 using std::vector;
