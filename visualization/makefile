@@ -2,6 +2,9 @@ LIBS=-lsfml-graphics -lsfml-window -lsfml-system
 
 all: visualis
 
+constants.o: constants.cpp
+		g++ -c -fopenmp "constants.cpp" -o constants.o
+
 functions.o: functions.cpp
 		g++ -c -fopenmp "functions.cpp" -o functions.o
 
@@ -12,9 +15,9 @@ bar.o: bar.cpp
 		g++ -c -fopenmp "bar.cpp" -o bar.o
 
 
-visualis: visual.o functions.o bar.o 
+visualis: constants.o visual.o functions.o bar.o
 		@echo "** Building the visualization"
-		g++ -o visualis -fopenmp  functions.o visual.o bar.o $(LIBS)
+		g++ -o visualis -fopenmp  constants.o functions.o visual.o bar.o $(LIBS)
 
 clean:
 		@echo "** Removing object files and executable..."

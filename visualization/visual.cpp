@@ -4,6 +4,7 @@
 #include <iostream>
 #include "bar.h"
 #include "functions.h"
+#include "constants.h"
 
 using std::vector;
 
@@ -33,14 +34,11 @@ int main()
     int outline=20;
     int screenx=660;
     int screeny=500;
-    int barWidth=6;
     sf::RenderWindow window(sf::VideoMode(screenx,screeny), "SortsVis");
     window.setFramerateLimit(180);
 
 
     vector<int> values=vector<int>();
-    int n=60;
-    int maxValue=400;
 
     std::vector<Bar> bars = std::vector<Bar>();
     srand(std::time(NULL));
