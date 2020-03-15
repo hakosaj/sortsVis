@@ -14,10 +14,8 @@ using std::vector;
 
 
 
-int main()
+int main(int argc, char **argv)
 {
-
-
     sf::Font font;
     int arrayAccessess=0;
     int comparisons=0;
@@ -35,7 +33,7 @@ int main()
     int screenx=660;
     int screeny=500;
     sf::RenderWindow window(sf::VideoMode(screenx,screeny), "SortsVis");
-    window.setFramerateLimit(180);
+    window.setFramerateLimit(240);
 
 
     vector<int> values=vector<int>();
@@ -111,34 +109,35 @@ int main()
 
 
         
-
-        
-        if (sortIndexi==n-1) {
-            sorted=true;
-
-        }
-
-        if(!sorted)
-        {
-       
-    
-            if (sortIndexj==n) {
-                sortIndexi++;
-                sortIndexj=sortIndexi+1;
-                for (int a=sortIndexi;a<n;a++) {
-                    bars[a].rect.setFillColor(myred);
+        if (argc>1){
+            if (*argv[1]=='i') {
+                if (sortIndexi==n-1) {
+                    sorted=true;
                 }
-            }else {
-                sortIndexj++;
-            }
 
-            if (sortIndexi!=n-1) {
+                if(!sorted)
+                {
+            
+            
+                    if (sortIndexj==n) {
+                        sortIndexi++;
+                        sortIndexj=sortIndexi+1;
+                        for (int a=sortIndexi;a<n;a++) {
+                            bars[a].rect.setFillColor(myred);
+                        }
+                    }else {
+                        sortIndexj++;
+                    }
 
-                if(bars[sortIndexj].value<bars[sortIndexi].value) {
-                    comparisons+=1;
-                    swapBars(bars,sortIndexi,sortIndexj);
-                    arrayAccessess+=4;
+                    if (sortIndexi!=n-1) {
 
+                        if(bars[sortIndexj].value<bars[sortIndexi].value) {
+                            comparisons+=1;
+                            swapBars(bars,sortIndexi,sortIndexj);
+                            arrayAccessess+=4;
+
+                        }
+                    }
                 }
             }
         }
