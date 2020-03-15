@@ -1,0 +1,3 @@
+
+
+    int barWidth =6;
