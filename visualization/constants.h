@@ -1,10 +1,13 @@
 #ifndef CONST_H
 #define CONST_H
 
-const int barWidth = 5;
-const int n=120;
-const int maxValue=400;
+#include <SFML/Graphics.hpp>
 
-
+extern int barWidth;
+extern int maxValue;
+extern int n;
+extern sf::Color myGreen;
+extern sf::Color myYellow;
+extern sf::Color myRed;
 
 #endif

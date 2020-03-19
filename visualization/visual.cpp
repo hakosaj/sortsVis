@@ -2,9 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <unistd.h>
 #include <iostream>
-#include "bar.h"
 #include "functions.h"
-#include "constants.h"
 
 using std::vector;
 
@@ -21,9 +19,11 @@ int main(int argc, char **argv)
     int comparisons=0;
     sf::Text accessText;
     sf::Text comparisonText;
-    font.loadFromFile("Arial.ttf");
+    font.loadFromFile("assets/Arial.ttf");
     accessText.setFont(font);
     comparisonText.setFont(font);
+
+
     int sortIndexi=0;
     int sortIndexj=0;
 
@@ -47,9 +47,6 @@ int main(int argc, char **argv)
         values.push_back(v);
     }
 
-    sf::Color mygreen = sf::Color(76, 209, 55);
-    sf::Color myyellow = sf::Color(251, 197, 49);
-    sf::Color myred = sf::Color(232, 65, 24);
 
     /*
     sf::SoundBuffer buffer;
@@ -109,35 +106,14 @@ int main(int argc, char **argv)
 
 
         
-        if (argc>1){
+        if (argc>1)
+            //InsertSort
             if (*argv[1]=='i') {
                 if (sortIndexi==n-1) {
                     sorted=true;
                 }
-
-                if(!sorted)
-                {
-            
-            
-                    if (sortIndexj==n) {
-                        sortIndexi++;
-                        sortIndexj=sortIndexi+1;
-                        for (int a=sortIndexi;a<n;a++) {
-                            bars[a].rect.setFillColor(myred);
-                        }
-                    }else {
-                        sortIndexj++;
-                    }
-
-                    if (sortIndexi!=n-1) {
-
-                        if(bars[sortIndexj].value<bars[sortIndexi].value) {
-                            comparisons+=1;
-                            swapBars(bars,sortIndexi,sortIndexj);
-                            arrayAccessess+=4;
-
-                        }
-                    }
+                if(!sorted) {
+                    quickSort(sortIndexi,sortIndexj,n,bars,arrayAccessess,comparisons);
                 }
             }
         }
@@ -145,8 +121,6 @@ int main(int argc, char **argv)
         
 
         
-        bars[sortIndexi].rect.setFillColor(mygreen);
-        bars[sortIndexj].rect.setFillColor(myyellow);
 
         accessText.setString("Array accesses: "+std::to_string(arrayAccessess));
         accessText.setPosition(50,30);

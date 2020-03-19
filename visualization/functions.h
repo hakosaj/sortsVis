@@ -6,6 +6,7 @@
 
 void swapBars(std::vector<Bar>& bars, int i, int j);
 void reorderBars(std::vector<Bar> bars);
+void quickSort(int& sortIndexi, int& sortIndexj,int n,std::vector<Bar>& bars, int& arrayAccesses, int& comparisons );
 
 
 
