@@ -11,22 +11,22 @@ Sorting algorithm practise on c++!
 
 Will be creating a variety of different sorting algorithms from scratch, just for fun!
 
-Adding some visualization later, too.
-
 
 ## Using the software
 
 DONT USE THIS YET
 
-## Next steps
-  - Quicksort
-  - Mergesort
-  - base10 Radix sort
-  - Design the visualization style
+## Done so far
+  - Visualisation style and GUI
+  - A version of insert sort
   - Makefile
 
+## Doing
+  - Quicksort
 
-Design the style of visualization
+## Next steps
+  - Mergesort
+  - base10 Radix sort
 
 ## Authors
 
