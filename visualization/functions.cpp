@@ -20,7 +20,7 @@ void reorderBars(std::vector<Bar> bars) {
 
 
     
-void quickSort(int& sortIndexi, int& sortIndexj,int n,vector<Bar>& bars, int& arrayAccesses, int& comparisons ) 
+void insertSort(int& sortIndexi, int& sortIndexj,int n,vector<Bar>& bars, int& arrayAccesses, int& comparisons ) 
 {
             
             
@@ -47,4 +47,36 @@ void quickSort(int& sortIndexi, int& sortIndexj,int n,vector<Bar>& bars, int& ar
         bars[sortIndexj].rect.setFillColor(myYellow);
 }
 
-        
+
+void iterativeQS(std::vector<Bar>& bars, int lo, int hi) {
+    int stack[hi-lo+1];
+    int top=-1;
+    stack[++top]=lo;
+    stack[++top]=hi;
+    while(top>=0) {
+        hi=stack[top--];
+        lo=stack[top--];
+        //partition
+        Bar pivot=bars[hi];
+        int i=lo;
+        for (int j=lo;j<hi;j++) {
+            if (bars[j].value<pivot.value) {
+               swapBars(bars,i,j);
+                i++;
+            }
+        }
+        swapBars(bars,i,hi);
+        int p=i;
+
+        if(p-1>lo) {
+            stack[++top]=lo;
+            stack[++top]=p-1;
+        }
+
+        if(p+1<hi) {
+            stack[++top]=p+1;
+            stack[++top]=hi;
+        }
+    }
+}
+

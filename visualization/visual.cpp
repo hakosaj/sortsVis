@@ -9,9 +9,6 @@ using std::vector;
 //Päivitys: 1) järjestele valuet 2) etsi jokaisen barin uusi slotti vertaamalla valueihin 
 // 3) muuta barien positiota slottien perusteella
 
-
-
-
 int main(int argc, char **argv)
 {
     sf::Font font;
@@ -23,9 +20,23 @@ int main(int argc, char **argv)
     accessText.setFont(font);
     comparisonText.setFont(font);
 
-
+    //insert
     int sortIndexi=0;
     int sortIndexj=0;
+
+    //quick
+    bool inPartition=false;
+    int qslo=0;
+    int qshi=n;
+    int qsi;
+    int qsj;
+    int qsp;
+    Bar qspivot = Bar(1,1);
+    int qsstack[qshi-qslo+1];
+    int qstop=-1;
+    qsstack[++qstop]=qslo;
+    qsstack[++qstop]=qshi;
+
 
     bool sorted=false;
 
@@ -63,6 +74,8 @@ int main(int argc, char **argv)
 
     while (window.isOpen())
     {
+
+        
 
         std::cout << '\a';
 
@@ -107,18 +120,54 @@ int main(int argc, char **argv)
 
         
         if (argc>1)
+        {
             //InsertSort
             if (*argv[1]=='i') {
                 if (sortIndexi==n-1) {
                     sorted=true;
                 }
                 if(!sorted) {
-                    quickSort(sortIndexi,sortIndexj,n,bars,arrayAccessess,comparisons);
+                    insertSort(sortIndexi,sortIndexj,n,bars,arrayAccessess,comparisons);
                 }
+            
+            }
+
+            if (*argv[1]=='q') {
+
+                if (qstop>=0) {
+                    qshi=qsstack[qstop--];
+                    qslo=qsstack[qstop--];
+                    qspivot=bars[qshi];
+                    qsi=qslo;
+                    qsj=qslo;
+                    if (qsj<qshi) {
+                        if (bars[qsj].value<qspivot.value) {
+                            swapBars(bars,qsi,qsj);
+                            qsi++;
+                        }
+                        qsj++;
+                        
+                    }
+
+                    swapBars(bars,qsi,qshi);
+                    qsp=qsi;
+                    if(qsp-1<qslo) {
+                        qsstack[++qstop]=qslo;
+                        qsstack[++qstop]=qsp-1;
+                    }
+                    if (qsp-1<qshi) {
+                        qsstack[++qstop]=qsp+1;
+                        qsstack[++qstop]=qshi;
+                    }
+                }
+                
+   
+
+
+
             }
         }
 
-        
 
         
 
@@ -144,4 +193,3 @@ int main(int argc, char **argv)
 
     return 0;
 }
-
